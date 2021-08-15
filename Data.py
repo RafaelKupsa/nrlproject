@@ -4,9 +4,10 @@ import torch
 from torch.utils.data import TensorDataset, random_split, DataLoader, RandomSampler, SequentialSampler
 
 
+# data class to extract training examples for next sentence prediction from the Chicago Rhyming Poetry Corpus
 class NextLineData:
     def __init__(self, files):
-        self.true_class = []
+        self.true_class = []    # positive examples
 
         for filepath in files:
             with open(filepath, "r", encoding="latin-1") as file:
@@ -22,12 +23,14 @@ class NextLineData:
                         self.true_class.append([prev_line, line])
                     prev_line = line
 
-        self.false_class = []
+        self.false_class = []   # negative examples
         for lines in self.true_class:
             rand_line = random.randrange(0, len(self.true_class))
 
             self.false_class.append([lines[0], self.true_class[rand_line][1]])
 
+    # preprocessing method taking in the model_type (Bert or Canine), the batch size and the number of examples
+    # and returning dataloaders for training and validation
     def preprocess(self, model_type, batch_size, num_examples):
         if model_type == "Bert":
             tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
@@ -60,10 +63,11 @@ class NextLineData:
         return train_dataloader, validation_dataloader
 
 
+# data class to extract training examples for rhyming sentences prediction from the Chicago Rhyming Poetry Corpus
 class RhymingData:
     def __init__(self, files):
-        self.true_class = []
-        self.false_class = []
+        self.true_class = []    # positive examples
+        self.false_class = []   # negative examples
 
         for filepath in files:
             with open(filepath, "r", encoding="latin-1") as file:
@@ -75,6 +79,9 @@ class RhymingData:
                     if line.startswith("AUTHOR") or line.startswith("TITLE") or len(line) == 0:
                         continue
                     if line.startswith("RHYME"):
+
+                        # asterisks (*) are used in the corpus to denote repeating patterns,
+                        # e.g. 'a a *' = 'a a b b c c ...'
                         if len(rhyme_pattern) > 0 and rhyme_pattern[-1] == "*":
                             new_rhyme_pattern = rhyme_pattern[:-1]
                             chars = list("bcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -83,6 +90,8 @@ class RhymingData:
                                 new_rhyme_pattern += [chars[i] for _ in rhyme_pattern[:-1]]
                                 i = (i+1) % len(chars)
                             rhyme_pattern = new_rhyme_pattern
+
+                        # add a positive (rhyming) and a negative (not rhyming) example for every line in the verse
                         if len(rhyme_pattern) == len(verse):
                             for i, line_1 in enumerate(verse):
                                 for j, line_2 in enumerate(verse):
@@ -104,6 +113,8 @@ class RhymingData:
                         continue
                     verse.append(line)
 
+    # preprocessing method taking in the model_type (Bert or Canine), the batch size and the number of examples
+    # and returning dataloaders for training and validation
     def preprocess(self, model_type, batch_size, num_examples):
         if model_type == "Bert":
             tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")

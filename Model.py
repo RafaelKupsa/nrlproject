@@ -8,6 +8,9 @@ import time
 import numpy as np
 
 
+# function to train the supplied model with the supplied train_dataloader and test_dataloader using the given optimizer
+# the model is trained for num_epochs and the given batch_size on the given device
+# to record statistics about the training you also need to supply the model_type ("Bert" or "Canine"), a model_filepath and a stats_filepath
 def train(model, train_dataloader, test_dataloader, optimizer, num_epochs, batch_size, device, model_type, model_filepath, stats_filepath):
 
     best_accuracy = 0
@@ -16,6 +19,8 @@ def train(model, train_dataloader, test_dataloader, optimizer, num_epochs, batch
     for epoch in range(1, num_epochs+1):
 
         print("Epoch:", epoch)
+
+        # training
 
         total_loss = 0
         model.train()
@@ -40,6 +45,7 @@ def train(model, train_dataloader, test_dataloader, optimizer, num_epochs, batch
         print("Average training loss:", avg_loss, "Time:", time.time() - t, end="\r")
         with open(stats_filepath, "a") as stats_file:
             stats_file.write(f"{model_type.upper()} Epoch {epoch}: Average training loss {avg_loss}, Time {time.time()-t}\n")
+
 
         # validation
 
@@ -68,15 +74,19 @@ def train(model, train_dataloader, test_dataloader, optimizer, num_epochs, batch
         with open(stats_filepath, "a") as stats_file:
             stats_file.write(f"{model_type.upper()} Epoch {epoch}: Average validation loss {avg_loss}, Average validation accuracy {avg_acc}, Time {time.time()-t}\n")
 
+        # only best result is saved
         if avg_acc > best_accuracy:
             best_accuracy = avg_acc
             torch.save(model, model_filepath)
 
+    # record best accuracy in stats file
     print(f"Training Finished: Best accuracy {best_accuracy}, Time {time.time() - t}")
     with open(stats_filepath, "a") as stats_file:
         stats_file.write(f"{model_type.upper()} Best accuracy {best_accuracy}, Time {time.time() - t}\n")
 
 
+# main script where hyperparameters can be set and training is initiated
+# Hyperparameters: filepaths, num_examples, model_type, batch_size, learning_rate, num_epochs, the data class (RhymingData or NextLineData) and the optimizer
 if __name__ == "__main__":
 
     prefix = "rhyming_poetry_10000ex_3epochs."
@@ -84,7 +94,7 @@ if __name__ == "__main__":
 
     for model_type in ["Canine", "Bert"]:
         model_filepath = prefix + model_type.lower()
-        num_examples = 100000
+        num_examples = 10000
         batch_size = 1
         learning_rate = 2e-5
         num_epochs = 3
