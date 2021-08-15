@@ -1,0 +1,14 @@
+BERT Epoch 1: Average training loss 0.4551365598441025, Time 4493.705537557602
+BERT Epoch 1: Average validation loss 0.34787908168189463, Average validation accuracy 0.84, Time 70.37054204940796
+BERT Epoch 2: Average training loss 0.1996450230889193, Time 1060.7544529438019
+BERT Epoch 2: Average validation loss 0.5210210750823817, Average validation accuracy 0.8355, Time 82.04439449310303
+BERT Epoch 3: Average training loss 0.08452119716190146, Time 1114.8404214382172
+BERT Epoch 3: Average validation loss 0.5189221124827381, Average validation accuracy 0.809, Time 81.916344165802
+BERT Best accuracy 0.84, Time 81.916344165802
+CANINE Epoch 1: Average training loss 0.9388269605492242, Time 1954.9742851257324
+CANINE Epoch 1: Average validation loss 1.0527080847173929, Average validation accuracy 0.496, Time 2131.6222262382507
+CANINE Epoch 2: Average training loss 1.2802503221600783, Time 4148.059932231903
+CANINE Epoch 2: Average validation loss 0.723574754923582, Average validation accuracy 0.504, Time 4321.479975700378
+CANINE Epoch 3: Average training loss 0.9366239810520783, Time 6243.919240474701
+CANINE Epoch 3: Average validation loss 0.8494140689820051, Average validation accuracy 0.504, Time 6413.037521123886
+CANINE Best accuracy 0.504, Time 6413.037521123886

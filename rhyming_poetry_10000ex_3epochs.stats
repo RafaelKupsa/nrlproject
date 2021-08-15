@@ -1,0 +1,6 @@
+CANINE Epoch 1: Average training loss 0.9288582229004242, Time 6810.826146602631
+CANINE Epoch 1: Average validation loss 0.704602055311203, Average validation accuracy 0.499, Time 7339.863560438156
+CANINE Best accuracy 0.499, Time 7340.740670442581
+BERT Epoch 1: Average training loss 1.4359281777216657, Time 3974.8798308372498
+BERT Epoch 1: Average validation loss 1.4618863437661203, Average validation accuracy 0.6635, Time 4239.0844893455505
+BERT Best accuracy 0.6635, Time 4239.852990865707
