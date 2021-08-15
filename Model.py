@@ -79,12 +79,12 @@ def train(model, train_dataloader, test_dataloader, optimizer, num_epochs, batch
 
 if __name__ == "__main__":
 
-    prefix = "rhyming_poetry_3000ex_1epoch."
+    prefix = "rhyming_poetry_10000ex_3epochs."
     stats_filepath = prefix + "stats"
 
     for model_type in ["Canine", "Bert"]:
         model_filepath = prefix + model_type.lower()
-        num_examples = 10000
+        num_examples = 100000
         batch_size = 1
         learning_rate = 2e-5
         num_epochs = 3
