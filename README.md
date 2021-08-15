@@ -47,16 +47,10 @@ Python libraries:
 ## Features
 
 This project contains the following files and directories:
-
-Data.py
-
-Model.py
-
-next_line_poetry_10000ex_3epochs.stats
-
-rhyming_poetry_10000ex_3epochs.stats
-
-rhyming_poetry_30000ex_1epoch.stats
-
+- Data.py
+- Model.py
+- next_line_poetry_10000ex_3epochs.stats
+- rhyming_poetry_10000ex_3epochs.stats
+- rhyming_poetry_30000ex_1epoch.stats
 
 The files for the fine-tuned models are unfortunately too large to upload here.
